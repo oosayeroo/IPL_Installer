@@ -1,0 +1,367 @@
+﻿:root {
+  --panel-blue-a: rgba(15, 67, 118, 0.96);
+  --panel-blue-b: rgba(12, 57, 103, 0.96);
+  --panel-border: #1597e5;
+  --ink: #e8f4ff;
+  --ink-dim: #b6d4f1;
+  --input-bg: #001830;
+  --danger: #b7302d;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--ink);
+  overflow: hidden;
+  font-weight: 600;
+}
+
+#map { position: fixed; inset: 0; }
+
+.panel {
+  background: linear-gradient(180deg, var(--panel-blue-a), var(--panel-blue-b));
+  border: 2px solid var(--panel-border);
+  border-radius: 0;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+  padding: 8px 10px;
+}
+
+#topBar {
+  position: fixed;
+  left: 6px;
+  top: 4px;
+  width: 214px;
+  z-index: 1200;
+}
+
+.mode-row {
+  display: flex;
+  gap: 6px;
+}
+
+.hint-text {
+  margin-top: 7px;
+  font-size: 13px;
+  line-height: 1.25;
+  color: var(--ink-dim);
+  font-weight: 600;
+}
+
+.filters-wrap {
+  margin-top: 7px;
+  position: relative;
+}
+
+#filterBtn {
+  margin-top: 0;
+  text-align: left;
+  font-size: 12px;
+  padding: 6px 8px;
+}
+
+#filterMenu {
+  margin-top: 5px;
+  padding: 6px 8px;
+  border: 1px solid #1a6ea8;
+  background: rgba(0, 24, 47, 0.96);
+}
+
+#filterMenu label {
+  margin-top: 4px;
+  font-size: 12px;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+#filterMenu label:first-child {
+  margin-top: 0;
+}
+
+#filterMenu input[type="checkbox"] {
+  width: 14px;
+  height: 14px;
+  margin: 0;
+}
+
+#touchToggle {
+  position: fixed;
+  right: 8px;
+  top: 6px;
+  width: 42px;
+  height: 34px;
+  min-width: 0;
+  padding: 0;
+  z-index: 1200;
+}
+
+#touchBar {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 1200;
+}
+
+#portsPanel {
+  position: fixed;
+  left: 6px;
+  bottom: 6px;
+  width: 260px;
+  z-index: 1200;
+}
+
+#rightStack {
+  position: fixed;
+  right: 8px;
+  top: 60px;
+  width: 330px;
+  max-height: calc(100vh - 70px);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 1200;
+}
+
+#detailsPanel, #vesselsPanel { overflow: auto; }
+#detailsPanel { max-height: 56vh; }
+#vesselsPanel { max-height: 36vh; }
+
+.panel-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.title-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+h3 {
+  margin: 0;
+  font-size: 31px;
+  line-height: 1;
+  font-weight: 800;
+}
+
+label {
+  margin-top: 6px;
+  display: block;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: #a8d0ef;
+}
+
+input, select, button {
+  width: 100%;
+  border-radius: 0;
+  border: 1px solid #1a6ea8;
+  background: var(--input-bg);
+  color: var(--ink);
+  padding: 8px 10px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+input[readonly] {
+  color: #d4e8f8;
+  opacity: .95;
+}
+
+input[type="color"] {
+  width: 70px;
+  height: 30px;
+  padding: 2px;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+}
+
+#portsBody > .row > select {
+  flex: 1.2;
+}
+
+#portsBody > .row > button {
+  flex: 1;
+  margin-top: 0;
+}
+
+.block-btn {
+  margin-top: 6px;
+  cursor: pointer;
+}
+
+.icon-btn {
+  width: auto;
+  min-width: 58px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.icon-btn span {
+  font-size: 11px;
+  opacity: .85;
+}
+
+.icon-btn.small {
+  min-width: 28px;
+  padding: 3px 6px;
+}
+
+.icon-btn.danger {
+  background: var(--danger);
+}
+
+.icon-btn.active {
+  background: #1f5f95;
+  box-shadow: inset 0 0 0 2px #56c3ff;
+}
+
+#portsPanel .panel-title-row .icon-btn.small {
+  display: none;
+}
+
+#vesselsBody .item {
+  border: 2px solid #0f78bc;
+  background: rgba(0, 24, 47, 0.94);
+  padding: 8px 10px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+#vesselsBody .item small {
+  display: block;
+  margin-top: 2px;
+  opacity: .86;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+#vesselsBody .item.active {
+  background: #17558a;
+}
+
+.menu {
+  position: fixed;
+  min-width: 0;
+  width: max-content;
+  border: 2px solid var(--panel-border);
+  background: rgba(0, 24, 47, 0.98);
+  z-index: 2000;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, .4);
+}
+
+#elementMenu {
+  min-width: 118px;
+}
+
+#mapMenu {
+  min-width: 0;
+}
+
+.menu button {
+  width: auto;
+  min-width: 0;
+  display: block;
+  white-space: nowrap;
+  border: 0;
+  border-bottom: 1px solid rgba(31, 105, 167, .45);
+  text-align: left;
+  cursor: pointer;
+  padding: 6px 8px;
+  font-size: 13px;
+}
+
+#elementMenu button {
+  text-align: left;
+  padding: 6px 8px;
+  min-width: 118px;
+}
+
+#mapMenu button {
+  padding: 5px 7px;
+  font-size: 12px;
+}
+
+.menu button:last-child {
+  border-bottom: 0;
+}
+
+.menu.up {
+  bottom: 48px;
+  left: 0;
+  position: absolute;
+}
+
+.touch-actions {
+  position: relative;
+}
+
+.leaflet-tooltip.ship-label,
+.leaflet-tooltip.box-label,
+.leaflet-tooltip.measure-label {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  color: #fff;
+  font-weight: 700;
+  text-shadow: 0 0 3px #001;
+  padding: 0;
+}
+
+.leaflet-tooltip.ship-label::before,
+.leaflet-tooltip.box-label::before,
+.leaflet-tooltip.measure-label::before {
+  display: none;
+}
+
+.hidden { display: none !important; }
+
+body:not(.touch-mode) #touchBar {
+  display: none !important;
+}
+
+body.touch-mode #topBar,
+body.touch-mode #portsPanel {
+  display: none !important;
+}
+
+.touch-mode .icon-btn,
+.touch-mode .block-btn,
+.touch-mode input,
+.touch-mode select {
+  min-height: 44px;
+  font-size: 16px;
+}
+
+@media (max-width: 980px) {
+  #rightStack { width: 300px; }
+  #portsPanel { width: 246px; }
+  h3 { font-size: 27px; }
+  input, select, button { font-size: 14px; }
+  #vesselsBody .item { font-size: 14px; }
+  #vesselsBody .item small { font-size: 14px; }
+}

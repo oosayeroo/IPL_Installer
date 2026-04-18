@@ -1,0 +1,123 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Interactive Port Layout</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="map"></div>
+
+  <div id="topBar" class="panel">
+    <div class="mode-row">
+      <button class="icon-btn" data-mode="move" title="Move (W)">✥ <span>(W)</span></button>
+      <button class="icon-btn" data-mode="resize" title="Resize (S)">⤢ <span>(S)</span></button>
+      <button class="icon-btn" data-mode="rotate" title="Rotate (R)">↻ <span>(R)</span></button>
+    </div>
+    <div id="transformHint" class="hint-text">Select an element, then use gizmo handles on the map.</div>
+    <div class="filters-wrap">
+      <button id="filterBtn" class="block-btn">Filter Overlays ▾</button>
+      <div id="filterMenu" class="hidden">
+        <label><input id="fltShip" type="checkbox" checked /> Vessels</label>
+        <label><input id="fltWarehouse" type="checkbox" checked /> Warehouses</label>
+        <label><input id="fltLabel" type="checkbox" checked /> Labels</label>
+        <label><input id="fltMeasurement" type="checkbox" checked /> Measurements</label>
+        <label><input id="fltBollard" type="checkbox" checked /> Bollards</label>
+      </div>
+    </div>
+  </div>
+
+  <button id="touchToggle" class="panel icon-btn" title="Toggle touch mode">☝</button>
+
+  <div id="touchBar" class="panel hidden">
+    <div class="touch-actions">
+      <button id="touchActionsBtn" class="icon-btn" title="Actions">☰</button>
+      <div id="touchActionsMenu" class="menu hidden up">
+        <button data-add="ship">Ship</button>
+        <button data-add="warehouse">Warehouse</button>
+        <button data-add="label">Label</button>
+        <button data-add="measurement">Measure</button>
+        <button data-add="bollard">Bollard</button>
+      </div>
+    </div>
+    <button id="touchLockBtn" class="icon-btn" title="Lock/Unlock">🔒</button>
+    <button id="touchDeleteBtn" class="icon-btn danger" title="Delete">🗑</button>
+    <button id="zoomInBtn" class="icon-btn" title="Zoom in">＋</button>
+    <button id="zoomOutBtn" class="icon-btn" title="Zoom out">－</button>
+  </div>
+
+  <div id="portsPanel" class="panel">
+    <div class="panel-title-row">
+      <h3>Ports</h3>
+      <button id="togglePortsBtn" class="icon-btn small hidden" title="Collapse">▾</button>
+    </div>
+    <div id="portsBody">
+      <div class="row">
+        <select id="portSelect"></select>
+        <button id="newPortBtn" class="block-btn">New Port</button>
+      </div>
+      <div id="newPortForm" class="hidden">
+        <input id="newPortName" placeholder="Port name" />
+        <input id="newPortCoords" placeholder="lat,lng" />
+        <div class="row">
+          <button id="pickPortPointBtn" class="block-btn">Pick on map</button>
+          <button id="createPortBtn" class="block-btn">Create</button>
+        </div>
+      </div>
+      <div id="transformStatus" class="hint-text">Transform mode: move.</div>
+    </div>
+  </div>
+
+  <div id="rightStack">
+    <div id="detailsPanel" class="panel hidden">
+      <div class="panel-title-row">
+        <h3>Details</h3>
+        <div class="title-actions">
+          <button id="detailsDeleteBtn" class="icon-btn small danger" title="Delete">🗑</button>
+          <button id="detailsLockBtn" class="icon-btn small" title="Lock/Unlock">🔒</button>
+        </div>
+      </div>
+
+      <label id="lblName">Name</label>
+      <input id="fldName" />
+
+      <label id="lblLength">Length (m)</label>
+      <input id="fldLength" type="number" step="0.01" min="1" />
+
+      <label id="lblWidth">Width (m)</label>
+      <input id="fldWidth" type="number" step="0.01" min="1" />
+
+      <label>Color</label>
+      <input id="fldColor" type="color" />
+
+      <label>Arrival</label>
+      <input id="fldArrival" type="date" />
+
+      <label>Text</label>
+      <input id="fldText" />
+
+      <label>Map Distance</label>
+      <input id="fldMapDistance" type="text" readonly />
+
+      <label>Custom Label</label>
+      <input id="fldMeasure" type="text" />
+    </div>
+
+    <div id="vesselsPanel" class="panel">
+      <div class="panel-title-row">
+        <h3>Vessels In Port</h3>
+        <button id="toggleVesselsBtn" class="icon-btn small" title="Collapse">▾</button>
+      </div>
+      <div id="vesselsBody"></div>
+    </div>
+  </div>
+
+  <div id="mapMenu" class="menu hidden"></div>
+  <div id="elementMenu" class="menu hidden"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script src="app.js"></script>
+</body>
+</html>
